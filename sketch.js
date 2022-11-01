@@ -6,17 +6,16 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
 
   //spawn enemies
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 75; i++) {
     let enemy = {
       x: random(0, width),
       y: random(-800, 0),
-    };
+    }
     enemies.push(enemy);
   }
 }
 function draw() {
-  background(51);
-  rectMode(CENTER);
+  background('#5B74AE');
   //draw the player
   circle(mouseX, height - 50, 25);
   //draw bullets
@@ -28,15 +27,17 @@ function draw() {
   for (let enemy of enemies) {
     enemy.y += 2;
     rect(enemy.x, enemy.y, 10);
-    if (enemy.y > height){
+    
+    //lose code
+    if (enemy.y > height) {
+      textSize(20);
       text("You Lose!", windowWidth/2, windowHeight/2)
-      noLoop()
+      noLoop();
     }
   }
-  rect(16, 18, 55, 55);
-  
-  
-  
+
+  rect(0, 0, 50, 50);
+
   //collision code
   for (let enemy of enemies) {
     for (let bullet of bullets) {
@@ -47,16 +48,17 @@ function draw() {
           x: random(0, width),
           y: random(-800, 0),
         };
+        //score code
         enemies.push(newEnemy);
-        score += 1
+        score += 1;
       }
     }
   }
-  
-  text(score, 17, 25)
+
+  text(score, 19, 30);
 }
 
-function mousePressed() {
+function mouseDragged() {
   //this function spawns the bullets when clicked
   let bullet = {
     x: mouseX,
@@ -64,4 +66,3 @@ function mousePressed() {
   };
   bullets.push(bullet);
 }
-
